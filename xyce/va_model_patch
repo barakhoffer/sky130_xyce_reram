@@ -1,0 +1,26 @@
+--- sky130_fd_pr_reram__reram_cell.va
++++ sky130_fd_pr_reram__reram_module.va
+@@ -18,4 +18,5 @@
+ `include "disciplines.vams"
++`define attr(txt) (*txt*)
+ 
+-module sky130_fd_pr_reram__reram_cell(TE, BE);
++module sky130_fd_pr_reram__reram_module(TE, BE);
+     inout TE; // top electrode
+@@ -32,3 +33,3 @@
+     parameter real Tfilament_min       = 3.3e-9     from (0:inf);                         // minimum thickness of conductive filament (for maximum resistance) [meters]
+-    parameter real Tfilament_0         = 3.3e-9     from [Tfilament_min:Tfilament_max];   // initial thickness of conductive filament (at t=0 for transient simulation) [meters]
++    parameter real Tfilament_0         = 3.3e-9     from [Tfilament_min:Tfilament_max] `attr(type="instance" xyceAlsoModel="yes");   // initial thickness of conductive filament (at t=0 for transient simulation) [meters]
+     // activation energy
+@@ -50,2 +51,3 @@
+     parameter real t_step              = 1.0e-9     from (0:inf);                         // maximum time step [seconds]
++    parameter real a0 = 0.25e-9;           // atomic distance [m]
+     // ==================================================
+@@ -53,3 +55,2 @@
+     // internal parameters
+-    real a0 = 0.25e-9;           // atomic distance [m]
+     real Tfilament_current;      // current filament thickness [m]
+@@ -69,3 +70,2 @@
+         real x, xmin, xmax;
+-        real p = 10;
+         begin
