@@ -16,9 +16,9 @@ x1=-1.5
 x2=1.5
 divx=5
 subdivx=1
-node="I(R0);I(XR0:YSKY130_FD_PR_RERAM__RERAM_MODULE!R0)"
-sweep="V(TE)"
-color=""
+node="\\"I(R0); 0 V1#branch -\\""
+sweep="TE"
+color=4
 dataset=-1
 unitx=1
 }
@@ -30,9 +30,13 @@ N 410 -310 410 -280 {
 lab=TE}
 N 190 -220 190 -190 {
 lab=0}
-N 190 -200 410 -200 {
+N 190 -190 410 -190 {
 lab=0}
 N 410 -220 410 -200 {
+lab=0}
+N 190 -190 190 -180 {
+lab=0}
+N 410 -200 410 -190 {
 lab=0}
 C {devices/vsource.sym} 190 -250 0 0 {name=V1 value="PWL (0 0 
 + 0.25u 1.4
@@ -41,10 +45,8 @@ C {devices/vsource.sym} 190 -250 0 0 {name=V1 value="PWL (0 0
 + 1.0u 0.0)"}
 C {devices/code_shown.sym} 190 -90 0 0 {name=SIMULATE
 only_toplevel=false 
-value="
-.tran 0.1n 1.5u
-"}
-C {devices/gnd.sym} 190 -190 0 0 {name=l2 lab=0}
+value=".tran 0.1n 1.5u"}
+C {devices/gnd.sym} 190 -180 0 0 {name=l2 lab=0}
 C {devices/lab_wire.sym} 300 -310 0 0 {name=l1 sig_type=std_logic lab=TE}
 C {sky130_fd_pr/reram_cell.sym} 410 -250 0 0 {name=R0
 model=reram_cell
@@ -58,13 +60,6 @@ set rawfile [file tail [file rootname [xschem get schname]]]
 xschem raw_read $netlist_dir/$\{rawfile\}.raw
 unset rawfile
 "}
-C {devices/code.sym} 310 -480 0 0 {name=PRINT
-only_toplevel=true
-format="tcleval( @value )"
-value="
-.print tran format=raw file=[file tail [file rootname [xschem get schname]]].raw v(*) i(*)
-"
-spice_ignore=false}
 C {devices/code.sym} 180 -480 0 0 {name=MODELS
 only_toplevel=true
 format="tcleval( @value )"
