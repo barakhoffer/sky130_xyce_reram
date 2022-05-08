@@ -16,7 +16,8 @@ x1=-1.5
 x2=1.5
 divx=5
 subdivx=1
-node="i(r0)"
+node="I(R0);I(XR0:YSKY130_FD_PR_RERAM__RERAM_MODULE!R0)"
+sweep="V(TE)"
 color=""
 dataset=-1
 unitx=1
@@ -42,7 +43,6 @@ C {devices/code_shown.sym} 190 -90 0 0 {name=SIMULATE
 only_toplevel=false 
 value="
 .tran 0.1n 1.5u
-.print tran format=raw file=reram_example.raw v(*) i(*)
 "}
 C {devices/gnd.sym} 190 -190 0 0 {name=l2 lab=0}
 C {devices/lab_wire.sym} 300 -310 0 0 {name=l1 sig_type=std_logic lab=TE}
@@ -55,28 +55,21 @@ C {devices/launcher.sym} 520 -420 0 0 {name=h1
 descr="Load I-V" 
 tclcommand="
 set rawfile [file tail [file rootname [xschem get schname]]]
-set mk $
-set altercmd \\"load $netlist_dir/$\{rawfile\}.raw
-set mk=!
-let i(r0)=i(xr0:ysky130_fd_pr_reram__reram_module$\{mk\}mk\{r0\})
-unlet i(xr0:ysky130_fd_pr_reram__reram_module$\{mk\}mk\{r0\})
-unset mk
-setscale v(te)
-write $netlist_dir/$\{rawfile\}_i-v.raw
-quit
-\\"
-unset mk
-exec ngspice -p << $altercmd
-unset altercmd
-xschem raw_read $netlist_dir/$\{rawfile\}_i-v.raw
+xschem raw_read $netlist_dir/$\{rawfile\}.raw
 unset rawfile
 "}
+C {devices/code.sym} 310 -480 0 0 {name=PRINT
+only_toplevel=true
+format="tcleval( @value )"
+value="
+.print tran format=raw file=[file tail [file rootname [xschem get schname]]].raw v(*) i(*)
+"
+spice_ignore=false}
 C {devices/code.sym} 180 -480 0 0 {name=MODELS
 only_toplevel=true
 format="tcleval( @value )"
 value="
 ** opencircuitdesign pdks install
 .inc $::SKYWATER_MODELS/../xyce/sky130_fd_pr_reram__reram_cell.spice
-
 "
 spice_ignore=false}
