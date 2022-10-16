@@ -3,9 +3,9 @@ SCRIPT_DIR="$(realpath $( dirname -- "$0"; ))"
 XYCE_BIN="$(dirname -- $(which Xyce);)"
 XYCE_LIB="$(realpath "$XYCE_BIN/../lib")"
 
-if [$(which buildxyceplugin.sh)]; then
+if [ -x "$(which buildxyceplugin.sh)" ]; then
     BUILD_SCRIPT=buildxyceplugin.sh
-elif [$(which buildxyceplugin)]; then
+elif [ -x "$(which buildxyceplugin)" ]; then
     BUILD_SCRIPT=buildxyceplugin
 else
     echo "Can not find build xyce plugin script."
@@ -22,7 +22,7 @@ git clone https://github.com/google/skywater-pdk-libs-sky130_fd_pr_reram sky130_
 cp sky130_fd_pr_reram/cells/reram_cell/sky130_fd_pr_reram__reram_cell.va $SCRIPT_DIR/xyce/sky130_fd_pr_reram__reram_module.va
 patch "$SCRIPT_DIR/xyce/sky130_fd_pr_reram__reram_module.va" < "$SCRIPT_DIR/xyce/va_model_patch"
 $BUILD_SCRIPT -o sky130_fd_pr_reram__reram_module "$SCRIPT_DIR/xyce/sky130_fd_pr_reram__reram_module.va" "$SCRIPT_DIR/build"
-cp "$SCRIPT_DIR/build/*.so" "$XYCE_LIB/plugins"
+cp "$SCRIPT_DIR/build"/*.so "$XYCE_LIB/plugins"
 
 mkdir -p ${PDK_ROOT}/sky130B/libs.tech
 cp -r "$SCRIPT_DIR/xyce" ${PDK_ROOT}/sky130B/libs.tech
