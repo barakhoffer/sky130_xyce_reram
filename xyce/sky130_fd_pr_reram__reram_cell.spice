@@ -17,6 +17,7 @@
 .subckt sky130_fd_pr_reram__reram_cell TE BE
 +
 .param Tfilament_0 = 3.3e-9
+.param area_ox = 0.1024e-12
 Ysky130_fd_pr_reram__reram_module R0 TE BE sky130_fd_pr_reram__reram_model Tfilament_0 = {Tfilament_0}
 .ends sky130_fd_pr_reram__reram_cell
 
