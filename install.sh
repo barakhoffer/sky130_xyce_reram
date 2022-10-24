@@ -26,6 +26,6 @@ cp "$SCRIPT_DIR/build"/*.so "$XYCE_LIB/plugins"
 
 mkdir -p ${PDK_ROOT}/sky130B/libs.tech
 mkdir -p ${PDK_ROOT}/sky130B/libs.tech/xyce
-cp "$SCRIPT_DIR/xyce/*.va" ${PDK_ROOT}/sky130B/libs.tech/xyce
-cp "$SCRIPT_DIR/xyce/*.spice" ${PDK_ROOT}/sky130B/libs.tech/xyce
+cp "$SCRIPT_DIR/xyce"/*.va ${PDK_ROOT}/sky130B/libs.tech/xyce
+cp "$SCRIPT_DIR/xyce"/*.spice ${PDK_ROOT}/sky130B/libs.tech/xyce
 cp -r "$SCRIPT_DIR/xschem" ${PDK_ROOT}/sky130B/libs.tech
