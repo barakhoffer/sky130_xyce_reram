@@ -25,5 +25,7 @@ $BUILD_SCRIPT -o sky130_fd_pr_reram__reram_module "$SCRIPT_DIR/xyce/sky130_fd_pr
 cp "$SCRIPT_DIR/build"/*.so "$XYCE_LIB/plugins"
 
 mkdir -p ${PDK_ROOT}/sky130B/libs.tech
-cp -r "$SCRIPT_DIR/xyce" ${PDK_ROOT}/sky130B/libs.tech
+mkdir -p ${PDK_ROOT}/sky130B/libs.tech/xyce
+cp "$SCRIPT_DIR/xyce/*.va" ${PDK_ROOT}/sky130B/libs.tech/xyce
+cp "$SCRIPT_DIR/xyce/*.spice" ${PDK_ROOT}/sky130B/libs.tech/xyce
 cp -r "$SCRIPT_DIR/xschem" ${PDK_ROOT}/sky130B/libs.tech
